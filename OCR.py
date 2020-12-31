@@ -4,9 +4,6 @@ from config import Config
 import os
 
 # Configure pytesseract
-if pytesseract.pytesseract.tesseract_cmd == "":
-    print("[ x ] Please fill in needed configurations in config.py file!")
-    exit()
 pytesseract.pytesseract.tesseract_cmd = (rf"{Config.TESSERACT_CMD_PATH}")
 
 
@@ -24,6 +21,8 @@ def img_to_string():
                 contact_info = {"email": "", "phone_number": pic_str_list[0]}
             elif type(pic_str_list[0]) == str:
                 contact_info = {"email": pic_str_list[0], "phone_number": ""}
+            elif pic_str_list[0] == '\f':
+                contact_info = {"email": "", "phone_number": ""}
         except IndexError:
             contact_info = {"email": "", "phone_number": ""}
     return contact_info

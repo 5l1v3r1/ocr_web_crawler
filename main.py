@@ -70,7 +70,8 @@ def main():
         # Add email and phone number info to each RCICs list
         for each in RCIC_list:
             # Get contact info image file
-            sleep(randint(1, 4)) # Adding delay decreases the chance of being caught as a bot
+            # Adding delay decreases the chance of being caught as a bot
+            sleep(randint(1, 3))
             get_RCIC_contact_info(each['form_id'])
 
             # Crop it for better OCR
@@ -82,6 +83,8 @@ def main():
             # Add extracted items to the RCICs list
             each['email'] = RCIC_contact_info['email']
             each['phone_number'] = RCIC_contact_info['phone_number']
+            
+            each.pop('form_id')  # form_id not needed after getting info
 
         # Add each RCIC list to the final one
         RCIC_list_all.append(RCIC_list)
@@ -91,7 +94,7 @@ def main():
     final_json.close()
 
 
-#Run the application
+# Run the application
 if __name__ == "__main__":
     print('[ - ] Scraping Started; This may take some time to finish. Until then, grab yourself a coffee and wait :)')
     main()
